@@ -1,6 +1,8 @@
 import React from 'react';
 import { Input } from 'react-materialize';
 
+import './Input.css';
+
 const input = (props) => {
 	let inputElement = null;
 
@@ -10,7 +12,6 @@ const input = (props) => {
 				{...props.elementConfig}
 				value={props.value}
 				onChange={props.changed}>
-				{props.icon}
 			</Input>;
 			break;
 		case ('textarea'):
@@ -25,6 +26,7 @@ const input = (props) => {
 				<Input
 					type='select'
 					value={props.value}
+					label={props.elementConfig.label}
 					icon="local_hotel"
 					onChange={props.changed}>
 					{props.elementConfig.options.map(option => (

@@ -5,7 +5,7 @@ import {Card} from 'react-materialize';
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
-import {Col, Preloader, Icon} from 'react-materialize';
+import {Col, Preloader} from 'react-materialize';
 import './Auth.css';
 import * as actions from '../../store/actions/index';
 
@@ -23,14 +23,14 @@ class Auth extends Component {
 				elementType: 'input',
 				elementConfig: {
 					type: 'password',
-					label: 'Heslo, které je na Vaší pozvánce',
-					icon: <Icon>fingerprint</Icon>
+					label: 'Heslo z Vaší pozvánky',
+					icon: 'fingerprint'
 				},
 				value: '',
 				valid: true,
 				touched: false
 			}
-		}
+		},
 	};
 
 	inputChangedHandler = (event, controlName) => {
@@ -79,14 +79,6 @@ class Auth extends Component {
 				</Col>);
 		}
 
-		let errorMessage = null;
-
-		if (this.props.error) {
-			errorMessage = (
-				<p>{this.props.error.message}</p>
-			);
-		}
-
 		let authRedirect = null;
 		if (this.props.isAuthenticated) {
 			authRedirect = <Redirect to={this.props.authRedirectPath}/>
@@ -96,8 +88,8 @@ class Auth extends Component {
 			<div className='auth'>
 				<Card className='purple darken-4 white-text authForm' s={6}>
 					{authRedirect}
-					{errorMessage}
 					<h5>Formulář pro svatební hosty</h5>
+					{this.props.error}
 					<form onSubmit={this.submitHandler}>
 						{form}
 						<Button btnType="Success">Přihlásit se</Button>

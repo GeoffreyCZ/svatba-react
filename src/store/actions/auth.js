@@ -39,7 +39,7 @@ export const auth = (password) => {
 			}
 		}).then(response => {
 			if (Object.keys(response.data).length === 0 && response.data.constructor === Object) {
-				dispatch(authFail("invalid password"));
+				dispatch(authFail("Zadané heslo neexistuje! Pokud jste si jeho zadáním jistí, kontaktujte Michala."));
 			} else {
 				localStorage.setItem('password', password);
 				dispatch(authSuccess(response.data));

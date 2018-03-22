@@ -1,5 +1,5 @@
 import React from 'react';
-import {Preloader, Toast, Icon, Card, Col} from 'react-materialize';
+import {Preloader, Card, Col} from 'react-materialize';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 
@@ -44,7 +44,7 @@ class Form extends React.Component {
 				elementConfig: {
 					type: 'text',
 					label: 'Vaše jméno a příjmení',
-					icon: <Icon>account_box</Icon>,
+					icon: 'account_box',
 					className: ''
 				},
 				value: '',
@@ -74,7 +74,7 @@ class Form extends React.Component {
 				elementConfig: {
 					type: 'text',
 					label: 'Alergie na potraviny',
-					icon: <Icon>local_dining</Icon>
+					icon: 'local_dining'
 				},
 				value: '',
 				valid: true,
@@ -85,7 +85,7 @@ class Form extends React.Component {
 				elementConfig: {
 					type: 'email',
 					label: 'Kontaktní e-mail',
-					icon: <Icon>mail</Icon>,
+					icon: 'mail',
 					className: ''
 				},
 				value: '',
@@ -102,7 +102,7 @@ class Form extends React.Component {
 				elementConfig: {
 					type: 'text',
 					label: 'Počet volných míst ve Vašem autě',
-					icon: <Icon>directions_car</Icon>
+					icon: 'directions_car'
 
 				},
 				value: '',
@@ -119,7 +119,7 @@ class Form extends React.Component {
 					type: 'checkbox',
 					checked: false,
 					label: 'Mám doprovod',
-					icon: <Icon>plus_one</Icon>
+					icon: 'plus_one',
 				},
 				valid: true,
 				show: true
@@ -129,7 +129,7 @@ class Form extends React.Component {
 				elementConfig: {
 					type: 'text',
 					label: 'Jméno a příjmení Vašeho doprovodu',
-					icon: <Icon>account_box</Icon>,
+					icon: 'account_box',
 					className: ''
 				},
 				value: '',
@@ -159,7 +159,7 @@ class Form extends React.Component {
 				elementConfig: {
 					type: 'text',
 					label: 'Alergie na potraviny',
-					icon: <Icon>local_dining</Icon>
+					icon: 'local_dining'
 				},
 				value: '',
 				valid: true,
@@ -169,7 +169,7 @@ class Form extends React.Component {
 				elementType: 'textarea',
 				elementConfig: {
 					label: 'Poznámka',
-					icon: <Icon>border_color</Icon>
+					icon: 'border_color'
 				},
 				value: '',
 				validation: {
