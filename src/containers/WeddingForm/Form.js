@@ -1,11 +1,14 @@
 import React from 'react';
-import {Icon, Card, Col} from 'react-materialize';
+import {Preloader, Toast, Icon, Card, Col} from 'react-materialize';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 
 import Input from './../../components/UI/Input/Input';
 import Button from './../../components/UI/Button/Button';
 import axios from './../../axios-orders';
 
 import './WeddingForm.css';
+import 'react-notifications/lib/notifications.css';
 
 class Form extends React.Component {
 	componentWillMount() {
@@ -40,8 +43,9 @@ class Form extends React.Component {
 				elementType: 'input',
 				elementConfig: {
 					type: 'text',
-					label: 'Vaše méno a příjmení',
-					icon: <Icon>account_box</Icon>
+					label: 'Vaše jméno a příjmení',
+					icon: <Icon>account_box</Icon>,
+					className: ''
 				},
 				value: '',
 				validation: {
@@ -81,7 +85,8 @@ class Form extends React.Component {
 				elementConfig: {
 					type: 'email',
 					label: 'Kontaktní e-mail',
-					icon: <Icon>mail</Icon>
+					icon: <Icon>mail</Icon>,
+					className: ''
 				},
 				value: '',
 				validation: {
@@ -124,7 +129,8 @@ class Form extends React.Component {
 				elementConfig: {
 					type: 'text',
 					label: 'Jméno a příjmení Vašeho doprovodu',
-					icon: <Icon>account_box</Icon>
+					icon: <Icon>account_box</Icon>,
+					className: ''
 				},
 				value: '',
 				validation: {
@@ -174,7 +180,8 @@ class Form extends React.Component {
 			},
 		},
 		formIsValid: false,
-		loading: false
+		loading: false,
+		success: false
 	};
 
 	submitHandler = (event) => {
@@ -192,11 +199,12 @@ class Form extends React.Component {
 		axios.patch('/guests.json', data)
 			.then(response => {
 				this.setState({loading: false});
-				this.setState({toast: true});
+				NotificationManager.success('Uloženo!', 'Jupí!');
 			})
 			.catch(error => {
 				this.setState({loading: false});
 				console.log(error);
+				NotificationManager.error('Něco se pokazilo! :(', 'Safra!');
 			});
 	};
 
@@ -266,6 +274,7 @@ class Form extends React.Component {
 
 		updatedFormElement.value = event.target.value;
 		updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+		updatedFormElement.valid ? updatedFormElement.elementConfig.className = 'valid' : updatedFormElement.elementConfig.className = 'invalid';
 		updatedFormElement.touched = true;
 		updatedForm[inputIdentifier] = updatedFormElement;
 
@@ -298,31 +307,39 @@ class Form extends React.Component {
 				config: this.state.personTwo[key]
 			});
 		}
+
 		let form = (
 			<form onSubmit={this.submitHandler}>
 				{formElementsPersonOneArray.map(formElement => (
-						<Col s={8} key={formElement.id}>
-							<Input
-								show={formElement.config.show}
-								label={formElement.config.label}
-								elementType={formElement.config.elementType}
-								elementConfig={formElement.config.elementConfig}
-								value={formElement.config.value}
-								invalid={!formElement.config.valid}
-								shouldValidate={formElement.config.validation}
-								touched={formElement.config.touched}
-								changed={(event) => this.inputChangedHandler(event, formElement.id)}/>
-						</Col>
+					<Col s={8} key={formElement.id}>
+						<Input
+							show={formElement.config.show}
+							label={formElement.config.label}
+							elementType={formElement.config.elementType}
+							elementConfig={formElement.config.elementConfig}
+							value={formElement.config.value}
+							invalid={!formElement.config.valid}
+							shouldValidate={formElement.config.validation}
+							touched={formElement.config.touched}
+							changed={(event) => this.inputChangedHandler(event, formElement.id)}/>
+					</Col>
 				))}
 				<Button btnType="Success" disabled={!this.state.formIsValid}>Uložit</Button>
 			</form>
 		);
+
+		if (this.state.loading) {
+			form = (
+				<Preloader size='big' flashing className='loading'/>
+			)
+		}
 		return (
 			<div className='wForm'>
-			<Card className='purple darken-4 white-text weddingForm'>
-				<h5>Formulář pro svatební hosty</h5>
-				{form}
-			</Card>
+				<NotificationContainer/>
+				<Card className='purple darken-4 white-text weddingForm'>
+					<h5>Formulář pro svatební hosty</h5>
+					{form}
+				</Card>
 			</div>
 		);
 	}
