@@ -1,12 +1,11 @@
 import React from 'react';
 
-import classes from './Button.css';
+import { Button } from 'react-materialize';
 
 const button = (props) => (
-	<button
+	<Button
 		disabled={props.disabled}
-		className={[classes.Button, classes[props.btnType]].join(' ')}
-		onClick={props.clicked}>{props.children}</button>
+		onClick={props.clicked}>{props.children}</Button>
 );
 
 export default button;

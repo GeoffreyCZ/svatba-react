@@ -1,42 +1,42 @@
 import React from 'react';
-
-import classes from './Input.css';
+import { Input } from 'react-materialize';
 
 const input = (props) => {
 	let inputElement = null;
 
 	switch (props.elementType) {
 		case ('input'):
-			inputElement = <input
-				className={classes.InputElement}
+			inputElement = <Input
 				{...props.elementConfig}
 				value={props.value}
-				onChange={props.changed}/>;
+				onChange={props.changed}>
+				{props.icon}
+			</Input>;
 			break;
 		case ('textarea'):
-			inputElement = <textarea
-				className={classes.InputElement}
+			inputElement = <Input
+				type='textarea'
 				{...props.elementConfig}
 				value={props.value}
 				onChange={props.changed}/>;
 			break;
 		case ('select'):
 			inputElement = (
-				<select
-					className={classes.InputElement}
+				<Input
+					type='select'
 					value={props.value}
+					icon="local_hotel"
 					onChange={props.changed}>
 					{props.elementConfig.options.map(option => (
 						<option key={option.value} value={option.value}>
 							{option.displayValue}
 						</option>
 					))}
-				</select>
+				</Input>
 			);
 			break;
 		default:
-			inputElement = <input
-				className={classes.InputElement}
+			inputElement = <Input
 				{...props.elementConfig}
 				value={props.value}
 				onChange={props.changed}/>;
@@ -46,8 +46,7 @@ const input = (props) => {
 
 	if (props.show) {
 		input = (
-			<div className={classes.Input}>
-				<label className={classes.Label}>{props.label}</label>
+			<div>
 				{inputElement}
 			</div>
 		)
